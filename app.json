@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme":"my-tailwind-app",
     "name": "my-tailwind-app",
     "slug": "my-tailwind-app",
     "version": "1.0.0",
