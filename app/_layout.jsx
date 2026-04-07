@@ -1,3 +1,4 @@
+import "../global.css";
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import React from "react";
 import { Slot, Stack } from "expo-router";
@@ -8,7 +9,7 @@ import { Colors } from "../constants/colors";
 const RootLayout = () => {
   const colorScheme = useColorScheme();
   console.log(Colors[colorScheme], Colors.colorScheme);
-  const theme = Colors[colorScheme] ?? Colors.light
+  const theme = Colors[colorScheme] ?? Colors.light;
 
   return (
     <SafeAreaView className="flex-1 justify-center  h-20">
@@ -18,8 +19,18 @@ const RootLayout = () => {
           headerTintColor: "yellow ",
         }}
       >
-        <Stack.Screen name="about" options={{ title: "About What?" }} />
+        <Stack.Screen name="about" options={{ title: "About What?"   }}/>
+
+        <Stack.Screen
+          name="(auth)"
+          options={{ title: "About What?", headerShown: false }}
+        />
+        <Stack.Screen
+          name="(dashboard)"
+          options={{ title: "About What?", headerShown: false }}
+        />
       </Stack>
+
       <Text>Footer</Text>
     </SafeAreaView>
   );
