@@ -1,6 +1,5 @@
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import jay from "../assets/Jay.jpg";
 import { Link } from "expo-router";
 
 const Home = () => {
@@ -11,7 +10,7 @@ const Home = () => {
         cares?
       </Text>
       <Image
-        source={jay}
+        source={require('../assets/Jay.jpg')}
         className="w-40 h-40 rounded-lg"
         resizeMode="contain"
       />

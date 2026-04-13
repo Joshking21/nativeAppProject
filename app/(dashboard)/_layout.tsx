@@ -1,6 +1,7 @@
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
+// import { FontAwesome } from "@expo/vector-icons";
 
 const DashnoardLayouts = () => {
   return (
@@ -32,9 +33,9 @@ const DashnoardLayouts = () => {
         options={{
           title: "FuckThatShit",
           tabBarIcon: ({ focused, size, color }) => (
-            <Ionicons
+            <FontAwesome6
               size={size}
-              name={focused ? "create" : "create-outline"}
+              name={focused ? "user" : "user"}
               color={focused ? "#3b82f6" : "#9ca3af"}
             />
           ),

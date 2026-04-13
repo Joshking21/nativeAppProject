@@ -1,11 +1,23 @@
 module.exports = {
-  extends: ['expo'],
+  root: true,
+  extends: [
+    'expo',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'unused-imports'],
   rules: {
-    // This is the "Joshua Rule" — marks unused variables as red errors
-    'no-unused-vars': 'error',
-    // This prevents you from using variables before they are defined
-    'no-use-before-define': 'error',
-    // Helpful for React Native to ensure you don't forget to import React
-    'react/react-in-jsx-scope': 'off', 
+    // Hide standard unused vars so the plugin can handle it better
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    
+    // RED LINE for unused imports
+    "unused-imports/no-unused-imports": "error",
+    
+    // YELLOW LINE (Warning) for unused variables
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
   },
 };

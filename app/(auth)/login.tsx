@@ -12,12 +12,12 @@ import StyledButton from "../../components/button";
 
 const Login = () => {
   const handleLogin = () => console.log("Logging in...", email, password);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   console.log(email);
 
   return (
-    <Pressable onPress={Keyboard.dismiss} className="flex-1 text-red-600">
+    <Pressable onPress={Keyboard.dismiss} className="flex-1 text -red-600">
       <View className="flex gap-4 p-4">
         <TextInput
           placeholder="Email"
