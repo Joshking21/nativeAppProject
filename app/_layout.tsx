@@ -1,4 +1,4 @@
-import "../global.css";
+import '@/global.css';
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import React from "react";
 import { Slot, Stack, Tabs } from "expo-router";
@@ -8,11 +8,14 @@ import { Colors } from "../constants/colors";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { House, Settings, Users, Wallet } from "@/components/icons";
 
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+
 const RootLayout = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <SafeAreaView className="flex-1 justify-center bg-white">
+    <GluestackUIProvider mode="dark">
+      <SafeAreaView className="flex-1 justify-center bg-white">
       {/* <Stack
         screenOptions={{
           headerStyle: { backgroundColor: "red" },
@@ -81,6 +84,8 @@ const RootLayout = () => {
 
       {/* <Text>Footer</Text> */}
     </SafeAreaView>
+    </GluestackUIProvider>
+  
   );
 };
 
