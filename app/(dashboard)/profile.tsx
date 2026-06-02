@@ -2,18 +2,18 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import StyledButton from "../../components/button";
 
-const Profile= () => {
+const Profile = () => {
   const handleProfile = () => console.log("Logging in...");
 
   return (
     <>
-      <StyledButton title="Sign In" onPress={handleProfile} variant="primary" />
+      <StyledButton title="Sign In" onPress={handleProfile} />
 
       {/* Danger/Delete Button */}
       <StyledButton
         title="Delete Account"
         onPress={() => {}}
-        variant="danger"
+        // variant="danger"
       />
 
       {/* Custom Overridden Button */}
@@ -21,7 +21,7 @@ const Profile= () => {
         title="Custom Green"
         onPress={() => {}}
         className="bg-green-500 active:bg-green-600 rounded-full"
-        variant=""
+        // variant=""
       />
     </>
   );

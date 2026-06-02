@@ -15,6 +15,7 @@
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts",
-    "components/button.jsx"
+    "components/button.jsx",
+    "declarations.d.ts"
   ]
 }

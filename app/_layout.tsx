@@ -43,7 +43,7 @@ const RootLayout = () => {
           tabBarInactiveBackgroundColor: "green",
         }}
       >
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="index"
           options={{
             title: "Home",
@@ -60,9 +60,9 @@ const RootLayout = () => {
               <Wallet size={size} color={focused ? "#3b82f6" : "#9ca3af"} />
             ),
           }}
-        />
+        /> */}
 
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="(auth)"
           options={{
             title: "Debtors",
@@ -70,16 +70,16 @@ const RootLayout = () => {
               <Users size={size} color={focused ? "#3b82f6" : "#9ca3af"} />
             ),
           }}
-        />
-        <Tabs.Screen
+        /> */}
+        {/* <Tabs.Screen
           name="about"
-          options={{
-            title: "Settings",
-            tabBarIcon: ({ focused, size, color }) => (
-              <Settings size={size} color={focused ? "#3b82f6" : "#9ca3af"} />
-            ),
-          }}
-        />
+          // options={{
+          //   title: "Settings",
+          //   tabBarIcon: ({ focused, size, color }) => (
+          //     <Settings size={size} color={focused ? "#3b82f6" : "#9ca3af"} />
+          //   ),
+          // }}
+        /> */}
       </Tabs>
 
       {/* <Text>Footer</Text> */}
