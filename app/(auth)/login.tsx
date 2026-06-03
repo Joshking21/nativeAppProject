@@ -1,13 +1,5 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
 import React, { useState } from "react";
+import { Keyboard, Pressable, TextInput, View } from "react-native";
 import StyledButton from "../../components/button";
 
 const Login = () => {
@@ -34,7 +26,7 @@ const Login = () => {
           keyboardType="numeric"
           onChangeText={setPassword}
         />
-        <StyledButton title="Sign In" onPress={handleLogin} variant="primary" />
+        <StyledButton title="Sign In" onPress={handleLogin} />
       </View>
 
       {/* Danger/Delete Button */}

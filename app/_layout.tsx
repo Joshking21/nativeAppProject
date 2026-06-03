@@ -33,7 +33,18 @@ const RootLayout = () => {
           options={{ title: "About What?", headerShown: false }}
         />
       </Stack> */}
-      <Tabs
+      <Stack
+          screenOptions={{
+            headerShown: false, // Hides the standard top native navigation bar
+          }}
+        >
+          {/* Your individual entry directory targets */}
+          <Stack.Screen name="index" />
+          <Stack.Screen name="about" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(dashboard)" />
+        </Stack>
+      {/* <Tabs
         screenOptions={{
           headerShown: false,
           tabBarBackground: () => <View className="bg-red-500 text-red-500" />,
@@ -42,7 +53,7 @@ const RootLayout = () => {
           tabBarActiveTintColor: "yellow",
           tabBarInactiveBackgroundColor: "green",
         }}
-      >
+      > */}
         {/* <Tabs.Screen
           name="index"
           options={{
@@ -80,7 +91,7 @@ const RootLayout = () => {
           //   ),
           // }}
         /> */}
-      </Tabs>
+      {/* </Tabs> */}
 
       {/* <Text>Footer</Text> */}
     </SafeAreaView>

@@ -1,5 +1,13 @@
-import React from "react"; 
-import { Animated, Dimensions, FlatList, ListRenderItem, Text, View } from "react-native";
+import { Link } from "expo-router";
+import React from "react";
+import {
+  Animated,
+  Dimensions,
+  FlatList,
+  ListRenderItem,
+  Text,
+  View,
+} from "react-native";
 import Cart from "../assets/cart.svg";
 import Chopmap from "../assets/ChopMap.svg";
 import Okada from "../assets/okada.svg";
@@ -9,7 +17,7 @@ const { width } = Dimensions.get("window");
 
 type CarouselItem = {
   id: string;
-  img: React.ReactNode; 
+  img: React.ReactNode;
   title: string;
   title1: string;
 };
@@ -25,7 +33,8 @@ const data: CarouselItem[] = [
     id: "2",
     img: <Cart width={275} height={248} />,
     title: "Eat within your budget",
-    title1: "Tell us how much you have and we'll show you meals you can afford nearby",
+    title1:
+      "Tell us how much you have and we'll show you meals you can afford nearby",
   },
   {
     id: "3",
@@ -53,7 +62,7 @@ const MyCarousel = () => {
           setActiveIndex(index);
         }
       },
-    }
+    },
   );
 
   const renderItem: ListRenderItem<CarouselItem> = ({ item }) => (
@@ -65,18 +74,25 @@ const MyCarousel = () => {
 
       <View className="w-full items-start mt-4">
         <Text className="text-3xl font-semibold text-left">{item.title}</Text>
-        <Text className="text-md text-left mt-2 text-typography-500">{item.title1}</Text>
+        <Text className="text-md text-left mt-2 text-typography-500">
+          {item.title1}
+        </Text>
       </View>
 
       {item.id === "3" && (
-        <Button
-          variant="solid"
-          size="xl"
-          className="w-full mt-6 rounded-xl bg-[#F27318] active:bg-[#C65A10] hover:bg-[#C65A10]"
-          action="primary"
-        >
-          <ButtonText>Get Started</ButtonText>
-        </Button>
+        <Link href="/profile" asChild>
+          <Button
+            variant="solid"
+            size="xl"
+            className="w-full mt-6 rounded-xl text-white bg-[#F27318] active:bg-[#C65A10] hover:bg-[#C65A10]"
+            action="primary"
+            // onPress={() => {
+            //   console.log("jjj");
+            // }}
+          >
+            <ButtonText>Get Started</ButtonText>
+          </Button>
+        </Link>
       )}
     </View>
   );
@@ -94,7 +110,7 @@ const MyCarousel = () => {
         onScroll={handleScroll}
         scrollEventThrottle={16}
       />
-      
+
       {/* Pagination Dots container */}
       <View className="flex-row justify-center items-center mt-4 h-4">
         {data.map((_, index) => {

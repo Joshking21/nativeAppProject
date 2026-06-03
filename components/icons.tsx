@@ -1,11 +1,13 @@
 import {
-  Wallet,
+  Bell,
   House,
-  Users,
-  Settings,
-  PlusCircle,
   LucideIcon,
-  Bell
+  MapPin,
+  PlusCircle,
+  Search,
+  Settings,
+  Users,
+  Wallet,
 } from "lucide-react-native"; // Import from root, not /icons
 import { cssInterop } from "nativewind";
 
@@ -16,7 +18,7 @@ function iconWithClassName(icon: LucideIcon) {
       target: "style",
       nativeStyleToProp: {
         color: true, // This maps Tailwind 'text-...' to Lucide 'color'
-        size: true, // This maps Tailwind 'w-...' and 'h-...' to Lucide 'size'
+        fontSize: "size", // This maps Tailwind 'w-...' and 'h-...' to Lucide 'size'
       },
     } as any, // <--- Add 'as any' here to bypass the strict type check
   });
@@ -28,6 +30,8 @@ iconWithClassName(Settings);
 iconWithClassName(PlusCircle);
 iconWithClassName(House);
 iconWithClassName(Bell);
+iconWithClassName(MapPin);
+iconWithClassName(Search)
 
 // 3. Export them
-export { Wallet, Users, Settings, PlusCircle, House, Bell };
+export { Bell, House, MapPin, PlusCircle, Search, Settings, Users, Wallet };
