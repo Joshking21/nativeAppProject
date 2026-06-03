@@ -1,48 +1,80 @@
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import React from "react";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
-// import { FontAwesome } from "@expo/vector-icons";
+import { View, Text } from "react-native";
+import { House, Search, Heart, User } from "@/components/icons";
 
-const DashnoardLayouts = () => {
+const DashboardLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarBackground: () => <View className="bg-red-500 text-red-500" />,
-        tabBarStyle: { backgroundColor: "blue" },
-        tabBarActiveBackgroundColor: "red",
-        tabBarActiveTintColor: "yellow",
-        tabBarInactiveBackgroundColor: "green",
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: "#F27318",
+        tabBarInactiveTintColor: "#9ca3af",
+        tabBarStyle: {
+          backgroundColor: "#ffffff",
+          borderTopWidth: 1,
+          borderTopColor: "#f3f4f6",
+          height: 65,
+          paddingBottom: 10,
+          paddingTop: 8,
+          elevation: 8,
+          shadowColor: "#000000",
+          shadowOpacity: 0.05,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: -3 },
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+        },
       }}
     >
       <Tabs.Screen
+        name="home"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ focused, color }) => (
+            <House size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: "Explore",
+          tabBarIcon: ({ focused, color }) => (
+            <Search size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: "Saved",
+          tabBarIcon: ({ focused, color }) => (
+            <Heart size={24} color={color} fill={focused ? "#F27318" : "none"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
-          title: "Profilito",
-          tabBarIcon: ({ focused, size, color }) => (
-            <Ionicons
-              size={size}
-              name="book"
-              color={focused ? "#3b82f6" : "#9ca3af"}
-            />
+          title: "Profile",
+          tabBarIcon: ({ focused, color }) => (
+            <User size={24} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="create"
         options={{
-          title: "FuckThatShit",
-          tabBarIcon: ({ focused, size, color }) => (
-            <FontAwesome6
-              size={size}
-              name={focused ? "user" : "user"}
-              color={focused ? "#3b82f6" : "#9ca3af"}
-            />
-          ),
+          href: null, // Hides it from the tab bar
         }}
       />
     </Tabs>
   );
 };
 
-export default DashnoardLayouts;
+export default DashboardLayout;
+

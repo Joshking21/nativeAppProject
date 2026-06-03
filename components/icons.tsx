@@ -1,11 +1,24 @@
 import {
+  ArrowLeft,
   Bell,
+  ChevronRight,
+  Clock,
+  Compass,
+  Heart,
   House,
   LucideIcon,
   MapPin,
+  MessageSquare,
+  Minus,
+  Phone,
+  Plus,
   PlusCircle,
   Search,
   Settings,
+  ShoppingCart,
+  Star,
+  Trash2,
+  User,
   Users,
   Wallet,
 } from "lucide-react-native"; // Import from root, not /icons
@@ -31,7 +44,42 @@ iconWithClassName(PlusCircle);
 iconWithClassName(House);
 iconWithClassName(Bell);
 iconWithClassName(MapPin);
-iconWithClassName(Search)
+iconWithClassName(Search);
+iconWithClassName(Heart);
+iconWithClassName(Trash2);
+iconWithClassName(Plus);
+iconWithClassName(Minus);
+iconWithClassName(ChevronRight);
+iconWithClassName(Phone);
+iconWithClassName(MessageSquare);
+iconWithClassName(Clock);
+iconWithClassName(ArrowLeft);
+iconWithClassName(User);
+iconWithClassName(Compass);
+iconWithClassName(Star);
+iconWithClassName(ShoppingCart);
 
 // 3. Export them
-export { Bell, House, MapPin, PlusCircle, Search, Settings, Users, Wallet };
+export {
+  ArrowLeft,
+  Bell,
+  ChevronRight,
+  Clock,
+  Compass,
+  Heart,
+  House,
+  MapPin,
+  MessageSquare,
+  Minus,
+  Phone,
+  Plus,
+  PlusCircle,
+  Search,
+  Settings,
+  ShoppingCart,
+  Star,
+  Trash2,
+  User,
+  Users,
+  Wallet,
+};

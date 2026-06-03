@@ -1,90 +1,140 @@
-import { MapPin, Search } from "@/components/icons";
-import { Input, InputField } from "@/components/ui/input";
 import React, { useState } from "react";
-import { Pressable, Text, View } from "react-native";
-import Cart from "../../assets/cart.svg";
+import {
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
+import { MapPin, User, ChevronRight, Wallet, Settings, Bell } from "@/components/icons";
+import { useApp } from "../../context/AppContext";
 
-const Profile = () => {
-  const handleProfile = () => console.log("Logging in...");
-  const [budget, setBudget] = useState<number>(1500);
-  const [category, setCategory] = useState<string>();
+const ProfileTab = () => {
+  const router = useRouter();
+  const { address, setAddress, clearCart } = useApp();
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
+  const [tempAddress, setTempAddress] = useState(address);
+
+  const handleSaveAddress = () => {
+    if (tempAddress.trim() === "") {
+      Alert.alert("Error", "Address cannot be empty.");
+      return;
+    }
+    setAddress(tempAddress);
+    setIsEditingAddress(false);
+  };
+
+  const handleLogout = () => {
+    clearCart();
+    // Navigate back to the onboarding index
+    router.replace("/");
+  };
 
   return (
-    <View className="h-screen w-screen bg-white p-3">
-      {/* <StyledButton title="Sign In" onPress={handleProfile} /> */}
+    <SafeAreaView className="flex-1 bg-[#FBFBFB] px-4 pt-3">
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text className="text-2xl font-extrabold text-gray-900 mb-6">Profile</Text>
 
-      <View className="flex justify-between   flex-row">
-        <View className="flex flex-row items-center gap-2">
-          <MapPin
-            className=""
-            fill="#F27318"
-            // strokeWidth={0}
-            size={32}
-            // color="#C65A10"
+        {/* User Card */}
+        <View className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm items-center mb-6">
+          <Image
+            source={require("../../assets/Jay.jpg")}
+            className="w-24 h-24 rounded-full mb-3 border border-gray-200"
           />
-          <Text>Surulere, Lagos</Text>
+          <Text className="text-lg font-bold text-gray-900">James Adeshola</Text>
+          <Text className="text-sm text-gray-400">james.adeshola@example.com</Text>
         </View>
-        <Cart width={24} height={24} className="rounded-full" />
-      </View>
-      <Input className="rounded-xl p-3">
-        <Search />
-        <InputField placeholder="What do you want to eat?"></InputField>
-      </Input>
 
-      <View>
-        <Text> Your budget</Text>
-        <View className="flex flex-row items-center gap-2 w-full">
-          {[1500, 2000, 3000, 4000].map((item, index) => (
+        {/* Wallet Balance Card */}
+        <View className="bg-[#F27318] rounded-3xl p-5 shadow-md shadow-orange-500/20 flex-row justify-between items-center mb-6">
+          <View>
+            <Text className="text-orange-100 text-xs font-bold uppercase mb-1">
+              ChopMap Wallet
+            </Text>
+            <Text className="text-white text-2xl font-extrabold">₦12,500.00</Text>
+          </View>
+          <View className="bg-white/20 p-3 rounded-2xl">
+            <Wallet size={24} color="#ffffff" />
+          </View>
+        </View>
+
+        {/* Delivery Address Section */}
+        <View className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm mb-6">
+          <View className="flex-row justify-between items-center mb-3">
+            <Text className="text-sm font-bold text-gray-800">Default Delivery Address</Text>
+            <Pressable
+              onPress={() => {
+                if (isEditingAddress) {
+                  handleSaveAddress();
+                } else {
+                  setTempAddress(address);
+                  setIsEditingAddress(true);
+                }
+              }}
+              className="bg-orange-50 px-3 py-1 rounded-md"
+            >
+              <Text className="text-xs font-bold text-[#F27318]">
+                {isEditingAddress ? "Save" : "Edit"}
+              </Text>
+            </Pressable>
+          </View>
+
+          {isEditingAddress ? (
+            <View className="flex-row items-center border border-gray-200 rounded-xl px-3 py-2">
+              <MapPin size={18} color="#F27318" />
+              <TextInput
+                value={tempAddress}
+                onChangeText={setTempAddress}
+                className="flex-1 ml-2 text-sm text-gray-800 font-semibold"
+                autoFocus
+              />
+            </View>
+          ) : (
+            <View className="flex-row items-start">
+              <MapPin size={18} color="#F27318" className="mt-0.5" />
+              <Text className="text-sm font-semibold text-gray-600 ml-2 flex-1 leading-5">
+                {address}
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Settings Links */}
+        <View className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden mb-8">
+          {[
+            { label: "My Account Details", icon: <User size={20} color="#6b7280" /> },
+            { label: "Notifications Settings", icon: <Bell size={20} color="#6b7280" /> },
+            { label: "App Preferences", icon: <Settings size={20} color="#6b7280" /> },
+          ].map((item, index) => (
             <Pressable
               key={index}
-              onPress={() => setBudget(item)}
-              className={
-                budget == item
-                  ? "bg-[#F27318] rounded-full w-[84px] h-[26px] items-center justify-center"
-                  : "bg-[#F2F2F2] rounded-full w-[84px] h-[36px] items-center justify-center"
-              }
+              className={`flex-row items-center justify-between p-4 ${
+                index !== 2 ? "border-b border-gray-50" : ""
+              }`}
             >
-              <Text
-                className={
-                  budget == item
-                    ? "text-white font-semibold text-center"
-                    : "text-[#666666] font-semibold text-center"
-                }
-              >
-                ₦{item.toLocaleString()}
-              </Text>
+              <View className="flex-row items-center gap-3">
+                {item.icon}
+                <Text className="text-sm font-bold text-gray-700">{item.label}</Text>
+              </View>
+              <ChevronRight size={16} color="#9ca3af" />
             </Pressable>
           ))}
         </View>
-      </View>
-      <View>
-        <Text> Categories</Text>
-        <View className="flex flex-row items-center gap-2 w-full">
-          {["Rice", "Swallow", "Drinks", "Snack"].map((item, index) => (
-            <Pressable
-              key={index}
-              onPress={() => setCategory(item)}
-              className={
-                category == item
-                  ? "bg-[#F27318] rounded-full w-[84px] h-[26px] items-center justify-center"
-                  : "bg-[#F2F2F2] rounded-full w-[84px] h-[36px] items-center justify-center"
-              }
-            >
-              <Text
-                className={
-                  category == item
-                    ? "text-white font-semibold text-center"
-                    : "text-[#666666] font-semibold text-center"
-                }
-              >
-                {item}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-      </View>
-    </View>
+
+        {/* Log Out Button */}
+        <Pressable
+          onPress={handleLogout}
+          className="w-full border border-red-200 active:bg-red-50 py-4 rounded-2xl items-center justify-center mb-12"
+        >
+          <Text className="text-red-500 text-base font-bold">Log Out</Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default Profile;
+export default ProfileTab;

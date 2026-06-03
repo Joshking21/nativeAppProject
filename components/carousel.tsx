@@ -1,17 +1,17 @@
 import { Link } from "expo-router";
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
   FlatList,
   ListRenderItem,
+  Pressable,
   Text,
   View,
 } from "react-native";
 import Cart from "../assets/cart.svg";
 import Chopmap from "../assets/ChopMap.svg";
 import Okada from "../assets/okada.svg";
-import { Button, ButtonText } from "./ui/button";
 
 const { width } = Dimensions.get("window");
 
@@ -19,43 +19,41 @@ type CarouselItem = {
   id: string;
   img: React.ReactNode;
   title: string;
-  title1: string;
+  description: string;
 };
 
 const data: CarouselItem[] = [
   {
     id: "1",
-    img: <Chopmap width={168} height={206} />,
+    img: <Chopmap width={180} height={220} />,
     title: "",
-    title1: "",
+    description: "",
   },
   {
     id: "2",
-    img: <Cart width={275} height={248} />,
+    img: <Cart width={280} height={250} />,
     title: "Eat within your budget",
-    title1:
+    description:
       "Tell us how much you have and we'll show you meals you can afford nearby",
   },
   {
     id: "3",
-    img: <Okada width={275} height={248} />,
+    img: <Okada width={280} height={250} />,
     title: "Food near you, instantly",
-    title1: "Discover nearby food and order or pickup in minutes",
+    description: "Discover nearby food and order or pickup in minutes.",
   },
 ];
 
 const MyCarousel = () => {
+  const flatListRef = useRef<FlatList<CarouselItem>>(null);
   const scrollX = React.useRef(new Animated.Value(0)).current;
-
-  // Track active page via an integer for simple component style triggers
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleScroll = Animated.event(
     [{ nativeEvent: { contentOffset: { x: scrollX } } }],
     {
       useNativeDriver: false,
       listener: (event: any) => {
-        // Calculate the current active page index cleanly based on current offset
         const offsetX = event.nativeEvent.contentOffset.x;
         const index = Math.round(offsetX / width);
         if (index !== activeIndex && index >= 0 && index < data.length) {
@@ -65,41 +63,49 @@ const MyCarousel = () => {
     },
   );
 
-  const renderItem: ListRenderItem<CarouselItem> = ({ item }) => (
+  const handleNext = () => {
+    flatListRef.current?.scrollToIndex({ index: 2, animated: true });
+  };
+
+  const renderItem: ListRenderItem<CarouselItem> = ({ item, index }) => (
     <View
       style={{ width: width }}
-      className="rounded-3xl flex-1 justify-center items-center p-4"
+      className="flex-1 justify-between items-center px-6 pt-16 pb-2"
     >
-      {item.img}
+      {/* Top spacing & Illustration */}
+      <View className="flex-1 justify-center items-center">{item.img}</View>
 
-      <View className="w-full items-start mt-4">
-        <Text className="text-3xl font-semibold text-left">{item.title}</Text>
-        <Text className="text-md text-left mt-2 text-typography-500">
-          {item.title1}
-        </Text>
-      </View>
+      {/* Description Content & Buttons */}
+      {item.id !== "1" ? (
+        <View className="w-full mb-12">
+          <Text className="text-3xl font-extrabold text-gray-900 text-left mb-3">
+            {item.title}
+          </Text>
+          <Text className="text-base text-gray-500 text-left leading-6 mb-8">
+            {item.description}
+          </Text>
 
-      {item.id === "3" && (
-        <Link href="/profile" asChild>
-          <Button
-            variant="solid"
-            size="xl"
-            className="w-full mt-6 rounded-xl text-white bg-[#F27318] active:bg-[#C65A10] hover:bg-[#C65A10]"
-            action="primary"
-            // onPress={() => {
-            //   console.log("jjj");
-            // }}
-          >
-            <ButtonText>Get Started</ButtonText>
-          </Button>
-        </Link>
+          {item.id === "3" && (
+            <Link href="/home" asChild>
+              <Pressable className="w-full bg-[#F27318] active:bg-[#C65A10] h-14 rounded-2xl items-center justify-center shadow-md shadow-orange-500/20">
+                <Text className="text-white text-lg font-bold">
+                  Get Started
+                </Text>
+              </Pressable>
+            </Link>
+          )}
+        </View>
+      ) : (
+        // For splash/slide 1, we just render an empty view to preserve vertical alignment
+        <View className="w-full mb-16 h-36" />
       )}
     </View>
   );
 
   return (
-    <View className="flex-1 w-full justify-between pb-8">
+    <View className="flex-1 w-full justify-between pb-8 bg-white">
       <FlatList
+        ref={flatListRef}
         data={data}
         horizontal
         pagingEnabled
@@ -112,41 +118,15 @@ const MyCarousel = () => {
       />
 
       {/* Pagination Dots container */}
-      <View className="flex-row justify-center items-center mt-4 h-4">
+      <View className="flex-row justify-center items-center mt-2 h-4">
         {data.map((_, index) => {
-          const inputRange = [
-            (index - 1) * width,
-            index * width,
-            (index + 1) * width,
-          ];
-
-          // Numeric animations work perfectly across both platform drivers
-          const dotWidth = scrollX.interpolate({
-            inputRange,
-            outputRange: [8, 20, 8],
-            extrapolate: "clamp",
-          });
-
-          const opacity = scrollX.interpolate({
-            inputRange,
-            outputRange: [0.4, 1, 0.4],
-            extrapolate: "clamp",
-          });
-
           const isDotActive = index === activeIndex;
-
           return (
-            <Animated.View
+            <View
               key={index.toString()}
-              style={{
-                width: dotWidth,
-                height: 8,
-                borderRadius: 4,
-                opacity,
-                marginHorizontal: 4,
-              }}
-              // Dynamically apply the background color using NativeWind utilities
-              className={isDotActive ? "bg-[#F27318]" : "bg-gray-300"}
+              className={`h-2 rounded-full mx-1 ${
+                isDotActive ? "w-6 bg-[#F27318]" : "w-2 bg-gray-300"
+              }`}
             />
           );
         })}
